@@ -5,7 +5,7 @@ DATASET_NAME = "/WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24NanoA
 REDIRECTOR = "root://cmsxrootd.fnal.gov/"
 OUTPUT_FILE = "WZ_3L.root"
 TREE_NAME = "Events"
-
+JSON_FILE = "Big_2024_MC_file.json"
 # --- Run Settings ---
 # Set to an integer (e.g., 5) or None to run on all files
 #MAX_FILES = None 
@@ -132,11 +132,11 @@ BRANCHES_TO_SAVE = [
     "PuppiMET_phi",
 
     # MC-only (if isMC)
-    "Pileup_nPU",
-    "Pileup_nTrueInt",
-    "Generator_weight",
-    "GenMET_pt",
-    "GenMET_phi",
+#    "Pileup_nPU",
+#    "Pileup_nTrueInt",
+#    "Generator_weight",
+#    "GenMET_pt",
+#    "GenMET_phi",
 
     # Object counts
     "nElectron",
@@ -144,6 +144,29 @@ BRANCHES_TO_SAVE = [
     "nJet",
 
     # Gen-level (MC only)
+#    "nGenPart",
+#    "nLHEPart",
+#    "nGenJet",
+#    "nPSWeight",
+#    "PSWeight",
+#    "nLHEPdfWeight",
+#    "LHEPdfWeight",
+#    "nLHEScaleWeight",
+#    "LHEScaleWeight",
+#    "LHEWeight_originalXWGTUP",
+#    "Rho_fixedGridRhoFastjetAll"
+]
+
+BRANCHES_MC = [
+
+    # Pileup + generator
+    "Pileup_nPU",
+    "Pileup_nTrueInt",
+    "Generator_weight",
+    "GenMET_pt",
+    "GenMET_phi",
+
+    # Gen-level
     "nGenPart",
     "nLHEPart",
     "nGenJet",
@@ -153,8 +176,7 @@ BRANCHES_TO_SAVE = [
     "LHEPdfWeight",
     "nLHEScaleWeight",
     "LHEScaleWeight",
-    "LHEWeight_originalXWGTUP",
-    "Rho_fixedGridRhoFastjetAll"
+    "LHEWeight_originalXWGTUP"
 ]
 
 BRANCHES_WILDCARD = [
@@ -166,4 +188,9 @@ BRANCHES_WILDCARD = [
     "GenJet_*"
 ]
 
+BRANCHES_WILDCARD_DATA = [
+    "Electron_*",
+    "Muon_*",
+    "Jet_*"
+]
 

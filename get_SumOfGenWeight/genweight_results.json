@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-02-25 23:19:13",
+  "results": {
+    "WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8": {
+      "dataset": "/WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM wz_3lnu",
+      "total_genEventSumw": 0.0,
+      "num_files": 0,
+      "status": "failed"
+    },
+    "ZZto4L_TuneCP5_13p6TeV_powheg-pythia8": {
+      "dataset": "/ZZto4L_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM zz_4l",
+      "total_genEventSumw": 0.0,
+      "num_files": 0,
+      "status": "failed"
+    },
+    "TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8": {
+      "dataset": "/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v3/NANOAODSIM ttbar_dilepton",
+      "total_genEventSumw": 0.0,
+      "num_files": 0,
+      "status": "failed"
+    },
+    "TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8": {
+      "dataset": "/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM ttbar_semilep",
+      "total_genEventSumw": 0.0,
+      "num_files": 0,
+      "status": "failed"
+    },
+    "WGtoLNuG-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8": {
+      "dataset": "/WGtoLNuG-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2/NANOAODSIM wg_1jet",
+      "total_genEventSumw": 0.0,
+      "num_files": 0,
+      "status": "failed"
+    }
+  }
+}

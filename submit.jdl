@@ -1,0 +1,572 @@
+executable = run_job.sh
+universe   = vanilla
++JobFlavour = "nextweek"
+stream_output = True
+stream_error  = True
+
+should_transfer_files = YES
+WhenToTransferOutput  = ON_EXIT
+notification = never
+getenv     = True
+
+Transfer_Input_Files = .
+request_cpus = 1
+request_memory = 8 GB
+request_disk = 50 GB
+
+output = logs/$(Cluster)_$(Process).out
+error  = logs/$(Cluster)_$(Process).err
+log    = logs/$(Cluster).log
+
+arguments = wz_3lnu part1
+queue
+
+arguments = wz_3lnu part2
+queue
+
+arguments = wz_3lnu part3
+queue
+
+arguments = wz_3lnu part4
+queue
+
+arguments = wz_3lnu part5
+queue
+
+arguments = wz_3lnu part6
+queue
+
+arguments = wz_3lnu part7
+queue
+
+arguments = wz_3lnu part8
+queue
+
+arguments = wz_3lnu part9
+queue
+
+arguments = wz_3lnu part10
+queue
+
+arguments = wz_3lnu part11
+queue
+
+arguments = wz_3lnu part12
+queue
+
+arguments = zz_4l part1
+queue
+
+arguments = zz_4l part2
+queue
+
+arguments = zz_4l part3
+queue
+
+arguments = zz_4l part4
+queue
+
+arguments = zz_4l part5
+queue
+
+arguments = zz_4l part6
+queue
+
+arguments = zz_4l part7
+queue
+
+arguments = zz_4l part8
+queue
+
+arguments = zz_4l part9
+queue
+
+arguments = zz_4l part10
+queue
+
+arguments = zz_4l part11
+queue
+
+arguments = ttbar_dilepton part1
+queue
+
+arguments = ttbar_dilepton part2
+queue
+
+arguments = ttbar_dilepton part3
+queue
+
+arguments = ttbar_dilepton part4
+queue
+
+arguments = ttbar_dilepton part5
+queue
+
+arguments = ttbar_dilepton part6
+queue
+
+arguments = ttbar_dilepton part7
+queue
+
+arguments = ttbar_dilepton part8
+queue
+
+arguments = ttbar_dilepton part9
+queue
+
+arguments = ttbar_dilepton part10
+queue
+
+arguments = ttbar_dilepton part11
+queue
+
+arguments = ttbar_dilepton part12
+queue
+
+arguments = ttbar_dilepton part13
+queue
+
+arguments = ttbar_dilepton part14
+queue
+
+arguments = ttbar_dilepton part15
+queue
+
+arguments = ttbar_dilepton part16
+queue
+
+arguments = ttbar_dilepton part17
+queue
+
+arguments = ttbar_dilepton part18
+queue
+
+arguments = ttbar_dilepton part19
+queue
+
+arguments = ttbar_dilepton part20
+queue
+
+arguments = ttbar_dilepton part21
+queue
+
+arguments = ttbar_dilepton part22
+queue
+
+arguments = ttbar_dilepton part23
+queue
+
+arguments = ttbar_dilepton part24
+queue
+
+arguments = ttbar_dilepton part25
+queue
+
+arguments = ttbar_dilepton part26
+queue
+
+arguments = ttbar_dilepton part27
+queue
+
+arguments = ttbar_dilepton part28
+queue
+
+arguments = ttbar_dilepton part29
+queue
+
+arguments = ttbar_dilepton part30
+queue
+
+arguments = ttbar_dilepton part31
+queue
+
+arguments = ttbar_dilepton part32
+queue
+
+arguments = ttbar_semilep part1
+queue
+
+arguments = ttbar_semilep part2
+queue
+
+arguments = ttbar_semilep part3
+queue
+
+arguments = ttbar_semilep part4
+queue
+
+arguments = ttbar_semilep part5
+queue
+
+arguments = ttbar_semilep part6
+queue
+
+arguments = ttbar_semilep part7
+queue
+
+arguments = ttbar_semilep part8
+queue
+
+arguments = ttbar_semilep part9
+queue
+
+arguments = ttbar_semilep part10
+queue
+
+arguments = ttbar_semilep part11
+queue
+
+arguments = ttbar_semilep part12
+queue
+
+arguments = ttbar_semilep part13
+queue
+
+arguments = ttbar_semilep part14
+queue
+
+arguments = ttbar_semilep part15
+queue
+
+arguments = ttbar_semilep part16
+queue
+
+arguments = ttbar_semilep part17
+queue
+
+arguments = ttbar_semilep part18
+queue
+
+arguments = ttbar_semilep part19
+queue
+
+arguments = ttbar_semilep part20
+queue
+
+arguments = ttbar_semilep part21
+queue
+
+arguments = ttbar_semilep part22
+queue
+
+arguments = ttbar_semilep part23
+queue
+
+arguments = ttbar_semilep part24
+queue
+
+arguments = ttbar_semilep part25
+queue
+
+arguments = ttbar_semilep part26
+queue
+
+arguments = ttbar_semilep part27
+queue
+
+arguments = ttbar_semilep part28
+queue
+
+arguments = ttbar_semilep part29
+queue
+
+arguments = ttbar_semilep part30
+queue
+
+arguments = ttbar_semilep part31
+queue
+
+arguments = ttbar_semilep part32
+queue
+
+arguments = wg_1jet part1
+queue
+
+arguments = wg_1jet part2
+queue
+
+arguments = wg_1jet part3
+queue
+
+arguments = wg_1jet part4
+queue
+
+arguments = wg_1jet part5
+queue
+
+arguments = wg_1jet part6
+queue
+
+arguments = wg_1jet part7
+queue
+
+arguments = wg_1jet part8
+queue
+
+arguments = wg_1jet part9
+queue
+
+arguments = wg_1jet part10
+queue
+
+arguments = wg_1jet part11
+queue
+
+arguments = wg_1jet part12
+queue
+
+arguments = wg_1jet part13
+queue
+
+arguments = wg_1jet part14
+queue
+
+arguments = wg_1jet part15
+queue
+
+arguments = wg_1jet part16
+queue
+
+arguments = wg_1jet part17
+queue
+
+arguments = wg_1jet part18
+queue
+
+arguments = wg_1jet part19
+queue
+
+arguments = wg_1jet part20
+queue
+
+arguments = wg_1jet part21
+queue
+
+arguments = wg_1jet part22
+queue
+
+arguments = wg_1jet part23
+queue
+
+arguments = wg_1jet part24
+queue
+
+arguments = wg_1jet part25
+queue
+
+arguments = wg_1jet part26
+queue
+
+arguments = wg_1jet part27
+queue
+
+arguments = wg_1jet part28
+queue
+
+arguments = wg_1jet part29
+queue
+
+arguments = wg_1jet part30
+queue
+
+arguments = wg_1jet part31
+queue
+
+arguments = wg_1jet part32
+queue
+
+arguments = wg_1jet part33
+queue
+
+arguments = wg_1jet part34
+queue
+
+arguments = wg_1jet part35
+queue
+
+arguments = wg_1jet part36
+queue
+
+arguments = wg_1jet part37
+queue
+
+arguments = wg_1jet part38
+queue
+
+arguments = wg_1jet part39
+queue
+
+arguments = wg_1jet part40
+queue
+
+arguments = wg_1jet part41
+queue
+
+arguments = wg_1jet part42
+queue
+
+arguments = wg_1jet part43
+queue
+
+arguments = wg_1jet part44
+queue
+
+arguments = wg_1jet part45
+queue
+
+arguments = wg_1jet part46
+queue
+
+arguments = wg_1jet part47
+queue
+
+arguments = wg_1jet part48
+queue
+
+arguments = wg_1jet part49
+queue
+
+arguments = wg_1jet part50
+queue
+
+arguments = wg_1jet part51
+queue
+
+arguments = wg_1jet part52
+queue
+
+arguments = wg_1jet part53
+queue
+
+arguments = wg_1jet part54
+queue
+
+arguments = wg_1jet part55
+queue
+
+arguments = wg_1jet part56
+queue
+
+arguments = wg_1jet part57
+queue
+
+arguments = wg_1jet part58
+queue
+
+arguments = wg_1jet part59
+queue
+
+arguments = wg_1jet part60
+queue
+
+arguments = wg_1jet part61
+queue
+
+arguments = wg_1jet part62
+queue
+
+arguments = wg_1jet part63
+queue
+
+arguments = wg_1jet part64
+queue
+
+arguments = wg_1jet part65
+queue
+
+arguments = wg_1jet part66
+queue
+
+arguments = wg_1jet part67
+queue
+
+arguments = wg_1jet part68
+queue
+
+arguments = wg_1jet part69
+queue
+
+arguments = wg_1jet part70
+queue
+
+arguments = wg_1jet part71
+queue
+
+arguments = wg_1jet part72
+queue
+
+arguments = wg_1jet part73
+queue
+
+arguments = wg_1jet part74
+queue
+
+arguments = wg_1jet part75
+queue
+
+arguments = wg_1jet part76
+queue
+
+arguments = wg_1jet part77
+queue
+
+arguments = wg_1jet part78
+queue
+
+arguments = wg_1jet part79
+queue
+
+arguments = wg_1jet part80
+queue
+
+arguments = wg_1jet part81
+queue
+
+arguments = wg_1jet part82
+queue
+
+arguments = wg_1jet part83
+queue
+
+arguments = wg_1jet part84
+queue
+
+arguments = wg_1jet part85
+queue
+
+arguments = wg_1jet part86
+queue
+
+arguments = wg_1jet part87
+queue
+
+arguments = wg_1jet part88
+queue
+
+arguments = wg_1jet part89
+queue
+
+arguments = wg_1jet part90
+queue
+
+arguments = wg_1jet part91
+queue
+
+arguments = wg_1jet part92
+queue
+
+arguments = wg_1jet part93
+queue
+
+arguments = wg_1jet part94
+queue
+
+arguments = wg_1jet part95
+queue
+
+arguments = wg_1jet part96
+queue
+
+arguments = wg_1jet part97
+queue
+

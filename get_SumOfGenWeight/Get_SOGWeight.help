@@ -1,0 +1,5 @@
+This function is to calculate the sum of gen weight of multiple data file from its path and save it in a txt file and json file for later use 
+
+to use this give the path of the .txt , which contains the path of all the files in "dataset_file"
+
+then just run it via python3 Get_SOGWeight.py

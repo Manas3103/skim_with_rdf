@@ -1,3 +1,7 @@
 *.root
 *.txt
 __pycache__/*
+*.out
+*.err
+*.log
+logs/*

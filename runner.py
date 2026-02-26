@@ -8,11 +8,13 @@ import config
 import json
 
 class AnalysisRunner:
-    def __init__(self, config_module):
+    def __init__(self, config_module, process_tag=None, part_tag=None):
         """
         Initialize with the configuration module.
         """
         self.cfg = config_module
+        self.process_tag = process_tag
+        self.part_tag = part_tag
         self.files = []
         self.start_time = 0
         self.end_time = 0
@@ -36,86 +38,11 @@ class AnalysisRunner:
             print(f"FATAL: {e}")
             sys.exit(1)
 
-'''    def get_file_list(self):
-        """
-        Uses a single JSON cache file.
-        Structure:
-        {
-            "tag_name": [file1, file2, ...],
-            ...
-        }
-        """
-
-        cache_filename = "file_cache.json"
-
-        # Use dataset name as tag (safe format)
-        tag_name = self.cfg.DATASET_NAME.replace("/", "_")[1:]
-
-        # --------------------------------------------------
-        # Step 1: Load existing JSON (if any)
-        # --------------------------------------------------
-        if os.path.exists(cache_filename):
-            with open(cache_filename, "r") as f:
-                try:
-                    cache_data = json.load(f)
-                except json.JSONDecodeError:
-                    cache_data = {}
-        else:
-            cache_data = {}
-
-        # --------------------------------------------------
-        # Step 2: If tag exists → load from cache
-        # --------------------------------------------------
-        if tag_name in cache_data:
-            print(f"Loading file list from JSON cache for tag: {tag_name}")
-            self.files = cache_data[tag_name]
-
-        else:
-            print(f"Tag '{tag_name}' not found in cache. Fetching from DAS...")
-            lfns = self._query_das()
-            self.files = [self.cfg.REDIRECTOR + lfn for lfn in lfns]
-
-            # Add new tag to JSON
-            cache_data[tag_name] = self.files
-
-            # Save updated JSON
-            with open(cache_filename, "w") as f:
-                json.dump(cache_data, f, indent=4)
-
-        # --------------------------------------------------
-        # Step 3: Optional Check for new files in DAS
-        # (Only if you want to update automatically)
-        # --------------------------------------------------
-        # lfns = self._query_das()
-        # new_files = [self.cfg.REDIRECTOR + lfn for lfn in lfns]
-        #
-        # existing_set = set(cache_data.get(tag_name, []))
-        # updated = False
-        #
-        # for file in new_files:
-        #     if file not in existing_set:
-        #         cache_data[tag_name].append(file)
-        #         updated = True
-        #
-        # if updated:
-        #     print("New files detected. Updating JSON cache.")
-        #     with open(cache_filename, "w") as f:
-        #         json.dump(cache_data, f, indent=4)
-
-        # --------------------------------------------------
-        # Step 4: Apply MAX_FILES limit
-        # --------------------------------------------------
-        total_available = len(self.files)
-
-        if self.cfg.MAX_FILES and self.cfg.MAX_FILES < total_available:
-            print(f"Limiting processing to {self.cfg.MAX_FILES} / {total_available} files.")
-            self.files = self.files[:self.cfg.MAX_FILES]
-        else:
-            print(f"Processing all {total_available} files.")'''
 
     def get_file_list(self):
-
-        cache_filename = "file_cache.json"
+        cache_filename = self.cfg.JSON_FILE
+       # cache_filename = "Bigfile_cache.json"
+        print(f"The cache file {cache_filename} is being used")
 
         if not os.path.exists(cache_filename):
             raise RuntimeError("file_cache.json not found!")
@@ -161,53 +88,6 @@ class AnalysisRunner:
         print(f"Total Time      : {hours}h {minutes}m {seconds}s")
         print("-" * 40)
 
-'''    def run(self):
-        """
-        Main execution method.
-        """
-        self.start_timer()
-        
-        # 1. Get Files
-        self.get_file_list()
-        if not self.files:
-            print("No files to process. Exiting.")
-            return
-
-        # 2. Initialize Skimmer (from skimmer.py)
-        print(f"Initializing RDataFrame...")
-        skimmer = AnalysisSkimmer(self.files, self.cfg.TREE_NAME)
-
-        print("calculating sum of genWeight")
-        xsec_pb=0.079
-        lumi_fb_inv = 62.4
-        lumi_pb_inv = lumi_fb_inv * 1000
-
-        #skimmer.define_genweight_sum_branch()
-        skimmer.define_total_weight(cross_section=xsec_pb, luminosity=lumi_pb_inv)
-
-
-        # 3. Apply Cuts (Using values from config)
-        print("Applying filters...")
-        skimmer.apply_global_filters(triggers=self.cfg.TRIGGERS, met_filters=self.cfg.MET_FILTERS)
-
-        print("Saving Branches")
-        branches_to_save = skimmer.build_branch_list(self.cfg.BRANCHES_TO_SAVE,getattr(self.cfg, "BRANCHES_WILDCARD", None))
-
-        for r in branches_to_save:
-            print(f"This is saving {r}")
-
-        # 4. Save Output
-        print(f"Starting Event Loop (writing to {self.cfg.OUTPUT_FILE})...")
-        try:
-            skimmer.save_snapshot(self.cfg.OUTPUT_FILE, branches_to_save)
-            print("Snapshot saved successfully.")
-        except Exception as e:
-            print(f"CRITICAL ERROR during execution: {e}")
-            sys.exit(1)
-
-        # 5. Finish
-        self.print_stats()'''
-
     def run(self):
 
         self.start_timer()
@@ -234,22 +114,39 @@ class AnalysisRunner:
             xsec_pb = 0.079
             lumi_fb_inv = 62.4
             lumi_pb_inv = lumi_fb_inv * 1000
+            
+            is_data = any("/store/data/" in f for f in file_list)
 
-            skimmer.define_total_weight(
-                cross_section=xsec_pb,
-                luminosity=lumi_pb_inv
-            )
+            #print(file_list)
+            if not is_data:
+                print("Calculating Normalization factor")
+                skimmer.define_total_weight(
+                    cross_section=xsec_pb,
+                    luminosity=lumi_pb_inv
+                )
+            else:
+                print("This is a data file skiping normalization")
 
             print("Applying filters...")
             skimmer.apply_global_filters(
                 triggers=self.cfg.TRIGGERS,
                 met_filters=self.cfg.MET_FILTERS
             )
+            
+            if not is_data:
+                branches_input = self.cfg.BRANCHES_TO_SAVE + ([] if is_data else self.cfg.BRANCHES_MC)
+                branches_to_save = skimmer.build_branch_list(
+                    branches_input,
+                    getattr(self.cfg, "BRANCHES_WILDCARD", None)
+                )
+                print("Branch required for MC process")
+            else:
+                branches_to_save = skimmer.build_branch_list(
+                    self.cfg.BRANCHES_TO_SAVE,
+                    getattr(self.cfg, "BRANCHES_WILDCARD_DATA", None)
+                )
+                print("Branch required for MC process")
 
-            branches_to_save = skimmer.build_branch_list(
-                self.cfg.BRANCHES_TO_SAVE,
-                getattr(self.cfg, "BRANCHES_WILDCARD", None)
-            )
 
             # Create part-specific output name
             output_name = f"{self.process_tag}_{part_name}.root"

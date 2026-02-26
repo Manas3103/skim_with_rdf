@@ -100,6 +100,6 @@ if __name__ == "__main__":
     # Set files_per_part=10 as requested
     create_bundles_from_dataset_txt(
         txt_file=txt_file,
-        files_per_part=10,
-        output_json="file_cache.json"
+        files_per_part=25,
+        output_json="Big_2024_MC_file.json"
     )
