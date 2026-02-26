@@ -38,14 +38,13 @@ class AnalysisRunner:
             print(f"FATAL: {e}")
             sys.exit(1)
 
-
     def get_file_list(self):
+
         cache_filename = self.cfg.JSON_FILE
-       # cache_filename = "Bigfile_cache.json"
         print(f"The cache file {cache_filename} is being used")
 
         if not os.path.exists(cache_filename):
-            raise RuntimeError("file_cache.json not found!")
+            raise RuntimeError(f"{cache_filename} not found!")
 
         with open(cache_filename, "r") as f:
             cache_data = json.load(f)
@@ -53,18 +52,36 @@ class AnalysisRunner:
         if self.process_tag not in cache_data:
             raise RuntimeError(f"Process '{self.process_tag}' not found")
 
-        process_dict = cache_data[self.process_tag]
+        # ---- Extract process block ----
+        process_block = cache_data[self.process_tag]
 
-        # If ALL → return all parts
+        # ---- Extract metadata ----
+        metadata = process_block.get("metadata", {})
+        files_dict = process_block.get("files", {})
+
+        # Store metadata in runner
+        self.cross_section = metadata.get("cross_section_pb")
+        self.sum_genweight = metadata.get("sum_genweight")
+        self.is_data = metadata.get("is_data", False)
+
+        print("Metadata loaded:")
+        print(f"  is_data        = {self.is_data}")
+        print(f"  cross_section  = {self.cross_section}")
+        print(f"  sum_genweight  = {self.sum_genweight}")
+
+        if not files_dict:
+            raise RuntimeError("No file parts found for this process")
+
+        # ---- If ALL return all parts ----
         if self.part_tag.upper() == "ALL":
             print(f"Running ALL parts for {self.process_tag}")
-            return process_dict
+            return files_dict
 
-        # If single part
-        if self.part_tag not in process_dict:
+        # ---- If single part ----
+        if self.part_tag not in files_dict:
             raise RuntimeError(f"Part '{self.part_tag}' not found")
 
-        return {self.part_tag: process_dict[self.part_tag]}
+        return {self.part_tag: files_dict[self.part_tag]}
 
 
     def start_timer(self):
@@ -110,22 +127,25 @@ class AnalysisRunner:
             # Initialize skimmer
             skimmer = AnalysisSkimmer(file_list, self.cfg.TREE_NAME)
 
-            print("Calculating total weight...")
-            xsec_pb = 0.079
-            lumi_fb_inv = 62.4
-            lumi_pb_inv = lumi_fb_inv * 1000
-            
             is_data = any("/store/data/" in f for f in file_list)
+            
+            print("Calculating total weight...")
 
-            #print(file_list)
-            if not is_data:
-                print("Calculating Normalization factor")
-                skimmer.define_total_weight(
-                    cross_section=xsec_pb,
-                    luminosity=lumi_pb_inv
-                )
+            if not self.is_data:
+
+                if self.cross_section is None or self.sum_genweight is None:
+                    raise RuntimeError(
+                        "MC sample missing cross_section or sum_genweight in metadata"
+                    )
+
+                print("Calculating normalization factor from metadata")
+                print(f"  cross_section  = {self.cross_section}")
+                print(f"  sum_genweight  = {self.sum_genweight}")
+
+                skimmer.define_total_weight(self.cross_section, self.sum_genweight)
+
             else:
-                print("This is a data file skiping normalization")
+                print("This is a data sample skipping normalization")
 
             print("Applying filters...")
             skimmer.apply_global_filters(

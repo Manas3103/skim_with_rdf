@@ -6,7 +6,8 @@ REDIRECTOR = "root://cmsxrootd.fnal.gov/"
 OUTPUT_FILE = "WZ_3L.root"
 TREE_NAME = "Events"
 JSON_FILE = "Big_2024_MC_file.json"
-# --- Run Settings ---
+
+
 # Set to an integer (e.g., 5) or None to run on all files
 #MAX_FILES = None 
 MAX_FILES = 1 

@@ -28,49 +28,35 @@ class AnalysisSkimmer:
             self.df = self.df.Filter(" && ".join(met_filters), "Combined MET Cut")
             print(f"Applied {len(met_filters)} MET Filters")
         
-
-        #3. Apply additional cuts
-        #self.df = self.df.Filter("PV_npvsGood > 0", "Has Good PV")
-        #self.df = self.df.Filter("nJet>0", "Atleast one Jet is required")
-        #self.df = self.df.Filter("nMuon + nElectron >= 3" , "Only allowed 3 Leptons")
         self.df = self.df.Filter("PV_npvsGood > 0 && nJet>0 && nMuon + nElectron >= 3", "Has Good PV atleat one jet only 3 L")
         print("3 Lepton >1 jet and the GOOD_PV cut is applied")
 
         return self.df
 
 
-    def define_total_weight(self, cross_section, luminosity):
+    def define_total_weight(self, cross_section, sum_gen_weight):
         print(f"Defining Total Normalization Weight")
-
-        # 1. Get the Sum of Gen Weights from the Runs tree
-        #    We read this from the 'Runs' tree because it holds the
-        #    sum of weights for the *original* file before any skimming.
-        runs_df = ROOT.RDataFrame("Runs", self.input_files)
-        sum_gen_weight = runs_df.Sum("genEventSumw").GetValue()
-
-        print(f"Total GenWeight from Runs tree: {sum_gen_weight}")
-        self.df = self.df.Define("genEventSumw", f"{sum_gen_weight}")
-
         print(f"  > Cross Section: {cross_section}")
-        print(f"  > Luminosity:    {luminosity}")
-        print(f"  > SumGenWeight:  {sum_gen_weight}")
+        print(f"  > SumOfGenWeight:    {sum_gen_weight}")
 
         # 2. Calculate the global scaling factor
-        #    Formula: Scale = (CrossSection * Lumi) / SumGenWeight
-        #    We compute this in Python to inject a simple number into the C++ string
+        #    Formula: Scale = (CrossSection) / SumGenWeight
         if sum_gen_weight != 0:
-            global_scale = (cross_section * luminosity) / sum_gen_weight
+            global_scale = (cross_section) / sum_gen_weight
         else:
             print("WARNING: SumGenWeight is 0. Setting scale to 0.")
             global_scale = 0
 
         # 3. Define the new weight branch
         #    Formula: totalWeight = genWeight * global_scale
-        self.df = self.df.Define("totalWeight", f"genWeight * {global_scale}")
+        # after computing global_scale (before Define)
+        self.df = self.df.Define("globalScale", f"{global_scale}") \
+                         .Define("sumGenWeight", f"{sum_gen_weight}") \
+                         .Define("crossSection", f"{cross_section}") \
+                         .Define("totalWeight", f"genWeight * {global_scale}")
 
         # 4. Add to save list
-        self.output_branches.extend(["totalWeight","genEventSumw"])
-
+        self.output_branches.extend(["totalWeight", "globalScale", "sumGenWeight", "crossSection"])
         return self
 
     def build_branch_list(self, explicit_branches, wildcard_patterns=None):
