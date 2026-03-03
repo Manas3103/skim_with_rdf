@@ -83,7 +83,7 @@ def create_bundles_from_dataset_txt(
 
         print(f"\nProcessing tag: {tag}")
         print(f"  is_data = {is_data}")
-        print(f"  cross_section = {cross_section} in pb")
+        print(f"  cross_section = {cross_section} in fb")
         print(f"  sum_genweight = {sum_genweight}")
 
         # ---- Query DAS ----
@@ -100,7 +100,7 @@ def create_bundles_from_dataset_txt(
         # ---- Build structured tag dictionary ----
         tag_dict = {
             "metadata": {
-                "cross_section_pb": cross_section,
+                "cross_section_fb": cross_section,
                 "sum_genweight": sum_genweight,
                 "is_data": is_data
             },
@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
     create_bundles_from_dataset_txt(
         txt_file=txt_file,
-        files_per_part=25,
-        output_json="Big_2024_MC_file.json"
+        files_per_part=5,
+        output_json="JSON_files/2024_Data_file.json"
     )
 

@@ -1,7 +1,7 @@
 import json
 
 # Read your JSON bundle file
-with open("Big_2024_MC_file.json") as f:
+with open("JSON_files/Big_2024_MC_file.json") as f:
     cache = json.load(f)
 
 submit_filename = "submit.jdl"
@@ -29,9 +29,11 @@ with open(submit_filename, "w") as sub:
     sub.write("error  = logs/$(Cluster)_$(Process).err\n")
     sub.write("log    = logs/$(Cluster).log\n\n")
 
-    # Loop over all processes and parts
-    for process, parts in cache.items():
-        for part in parts.keys():
+    for process, proc_info in cache.items():
+
+        files_dict = proc_info.get("files", {})
+
+        for part in files_dict:
             sub.write(f"arguments = {process} {part}\n")
             sub.write("queue\n\n")
 

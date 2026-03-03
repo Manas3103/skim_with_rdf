@@ -36,7 +36,7 @@ class AnalysisSkimmer:
 
     def define_total_weight(self, cross_section, sum_gen_weight):
         print(f"Defining Total Normalization Weight")
-        print(f"  > Cross Section: {cross_section}")
+        print(f"  > Cross Section: {cross_section} in fb")
         print(f"  > SumOfGenWeight:    {sum_gen_weight}")
 
         # 2. Calculate the global scaling factor

@@ -60,7 +60,7 @@ class AnalysisRunner:
         files_dict = process_block.get("files", {})
 
         # Store metadata in runner
-        self.cross_section = metadata.get("cross_section_pb")
+        self.cross_section = metadata.get("cross_section_fb")
         self.sum_genweight = metadata.get("sum_genweight")
         self.is_data = metadata.get("is_data", False)
 

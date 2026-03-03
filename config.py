@@ -5,7 +5,7 @@ DATASET_NAME = "/WZto3LNu_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24NanoA
 REDIRECTOR = "root://cmsxrootd.fnal.gov/"
 OUTPUT_FILE = "WZ_3L.root"
 TREE_NAME = "Events"
-JSON_FILE = "Big_2024_MC_file.json"
+JSON_FILE = "JSON_files/Big_2024_MC_file.json"
 
 
 # Set to an integer (e.g., 5) or None to run on all files
