@@ -177,7 +177,8 @@ BRANCHES_MC = [
     "LHEPdfWeight",
     "nLHEScaleWeight",
     "LHEScaleWeight",
-    "LHEWeight_originalXWGTUP"
+    "LHEWeight_originalXWGTUP",
+    "Rho_fixedGridRhoFastjetAll"
 ]
 
 BRANCHES_WILDCARD = [
