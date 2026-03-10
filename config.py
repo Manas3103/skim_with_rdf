@@ -163,7 +163,7 @@ BRANCHES_MC = [
     # Pileup + generator
     "Pileup_nPU",
     "Pileup_nTrueInt",
-    "Generator_weight",
+    "genWeight",
     "GenMET_pt",
     "GenMET_phi",
 
