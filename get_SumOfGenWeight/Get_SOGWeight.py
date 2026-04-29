@@ -5,7 +5,8 @@ from datetime import datetime
 
 # === User Config ===
 redirector = "root://cmsxrootd.fnal.gov/"
-dataset_file = "GetGnWeight.txt"
+#dataset_file = "GetGnWeight.txt"
+dataset_file = "temp.txt"
 
 output_file = "genweight_results.txt"
 json_output_file = "genweight_results.json"

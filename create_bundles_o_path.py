@@ -142,6 +142,6 @@ if __name__ == "__main__":
     create_bundles_from_dataset_txt(
         txt_file=txt_file,
         files_per_part=5,
-        output_json="JSON_files/2024_Data_file.json"
+        output_json="JSON_files/DY_file.json"
     )
 

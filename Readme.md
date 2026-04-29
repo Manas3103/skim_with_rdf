@@ -45,6 +45,8 @@ Check DAS:
 dasgoclient --help
 ```
 
+Which ever process you want to skim first find its sum of gen weight, which can be found in the getSumOfGenWeight directory add the path in a .txt file and add the file name in the .py script. it will automatically calcluate the sum of Gen weight.
+
 ---
 
 ## Input File Format (`datasets.txt`)
