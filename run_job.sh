@@ -22,7 +22,11 @@ else
     cd CMSSW_13_3_3/src
     cmsenv
     eval `scramv1 runtime -sh`
-    cd -
+    cd ${_CONDOR_SCRATCH_DIR}
+
+    echo "=== FILES AFTER TRANSFER ==="
+    pwd
+    ls -al
 
     echo "System Info"
     date

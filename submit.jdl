@@ -9,7 +9,7 @@ WhenToTransferOutput  = ON_EXIT
 notification = never
 getenv     = True
 
-Transfer_Input_Files = .
+Transfer_Input_Files = runner.py, skimmer.py, config.py, JSON_files/2024_Data_file.json, JSON_files/Big_2024_MC_file.json, JSON_files/DY_file.json, run_job.sh, jobs.txt
 request_cpus = 1
 request_memory = 4 GB
 request_disk = 20 GB
@@ -18,5 +18,5 @@ output = logs/$(Cluster)_$(Process).out
 error  = logs/$(Cluster)_$(Process).err
 log    = logs/$(Cluster).log
 
-arguments = $(dataset) $(part)
-queue dataset,part from jobs_DY.txt 
+arguments = $(dataset) $(part) DATA
+queue dataset,part from jobs.txt 

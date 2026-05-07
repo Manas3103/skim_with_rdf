@@ -39,14 +39,27 @@ class AnalysisRunner:
             sys.exit(1)
 
     def get_file_list(self):
-
+        
+        print("DEBUG: NEW VERSION OF GET_FILE_LIST IS RUNNING")
         cache_filename = self.cfg.JSON_FILE
         print(f"The cache file {cache_filename} is being used")
 
-        if not os.path.exists(cache_filename):
-            raise RuntimeError(f"{cache_filename} not found!")
+        # ---- Try original path (local running) ----
+        if os.path.exists(cache_filename):
+            final_path = cache_filename
 
-        with open(cache_filename, "r") as f:
+        # ---- Try Condor flat directory ----
+        else:
+            flat_name = os.path.basename(cache_filename)
+            print(flat_name) #debug line
+            if os.path.exists(flat_name):
+                final_path = flat_name
+            else:
+                raise RuntimeError(f"{cache_filename} not found!")
+
+        print(f"Using JSON file: {final_path}")
+
+        with open(final_path, "r") as f:
             cache_data = json.load(f)
 
         if self.process_tag not in cache_data:
