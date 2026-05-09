@@ -19,4 +19,5 @@ error  = logs/$(Cluster)_$(Process).err
 log    = logs/$(Cluster).log
 
 arguments = $(dataset) $(part) DATA
-queue dataset,part from jobs.txt 
+# queue dataset,part from jobs.txt 
+queue dataset,part from jobs_2024_data.txt 
